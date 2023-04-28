@@ -44,14 +44,14 @@ function getLowestAndHighestHappinessScores() {
     let lowestHappinessScore = getTotalHappinessScore(yearEndDate);
     let lowestHappinessDate = yearStartdate;
 
-    for (let currentDate = yearStartdate; currentDate <= yearEndDate; currentDate.setDate(currentDate.getDate() + 1)) {
+    for (let currentDate = yearStartdate; currentDate < yearEndDate; currentDate.setDate(currentDate.getDate() + 1)) {
         const currentHappinessScore = getTotalHappinessScore(currentDate);
         if (currentHappinessScore < lowestHappinessScore) {
-            lowestHappinessDate = currentDate;
+            lowestHappinessDate = new Date(currentDate);
             lowestHappinessScore = currentHappinessScore;
         }
         if (currentHappinessScore > highestHappinessScore) {
-            highestHappinessDate = currentDate;
+            highestHappinessDate = new Date(currentDate);
             highestHappinessScore = currentHappinessScore;
         }
     }
@@ -93,7 +93,8 @@ const outputHolidayDate = document.querySelector("#output-holiday-date");
 const outputHolidayName = document.querySelector("#output-holiday-name");
 const outputHappinessScore = document.querySelector("#output-happiness-score");
 const outputHighestHappinessDate = document.querySelector("#output-highest-happiness-date");
-const outputHighestHappinessScore = document.querySelector("#output-lowest-happiness-score");
+const outputHighestHappinessScore = document.querySelector("#output-highest-happiness-score");
+const outputLowestHappinessScore = document.querySelector("#output-lowest-happiness-score");
 const outputLowestHappinessDate = document.querySelector("#output-lowest-happiness-date");
 
 dateInputSubmitBtn.addEventListener("click", ()=> {
@@ -109,7 +110,7 @@ const highestAndLowestScoresAndDates = getLowestAndHighestHappinessScores();
 outputHighestHappinessDate.textContent = highestAndLowestScoresAndDates["highestHappinessDate"];
 outputHighestHappinessScore.textContent = highestAndLowestScoresAndDates["highestHappinessScore"];
 outputLowestHappinessDate.textContent = highestAndLowestScoresAndDates["lowestHappinessDate"];
-outputHighestHappinessScore.textContent = highestAndLowestScoresAndDates["highestHappinessScore"];
+outputLowestHappinessScore.textContent = highestAndLowestScoresAndDates["lowestHappinessScore"];
 
 // UNIT TESTS
 {
