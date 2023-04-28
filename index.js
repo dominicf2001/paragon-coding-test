@@ -1,3 +1,4 @@
+// HOLIDAY LIST
 const companyHolidays = [
   { name: "Washington's Birthday", date: new Date('2023-02-20') },
   { name: "Good Friday", date: new Date('2023-04-07') },
@@ -10,6 +11,7 @@ const companyHolidays = [
   { name: "Holiday Break", date: new Date('2023-12-25') }
 ];
 
+// HELPER FUNCTIONS
 function getHappinessScore(dateInput, holidayDate) {
     const msPerDay = 1000 * 60 * 60 * 24;
     const diffInDays = Math.floor((holidayDate - dateInput) / msPerDay);
@@ -71,3 +73,18 @@ dateInputSubmitBtn.addEventListener("click", ()=> {
     outputHolidayDate.textContent = formatDate(closestHolidayObj.date);
     outputHappinessScore.textContent = getTotalHappinessScore(dateInputObj);
 });
+
+// UNIT TESTS
+{
+    const dateInput = new Date('2023-03-15');
+    const expectedResult = { name: "Washington's Birthday", date: new Date('2023-02-20') }
+    const closestHoliday = getClosestHoliday(dateInput, companyHolidays);
+
+    console.log(`${dateInput}: \nEXPECTED: ${expectedResult.name}, ${formatDate(expectedResult.date)} \nRESULT: ${closestHoliday.name}, ${formatDate(closestHoliday.date)}`);
+    if (closestHoliday.name === expectedResult.name &&
+        closestHoliday.date.getTime() === expectedResult.date.getTime()) {
+        console.log('Test passed');
+    } else {
+        console.error('Test failed');
+    }
+}
