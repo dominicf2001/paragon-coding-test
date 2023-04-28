@@ -36,6 +36,34 @@ function getTotalHappinessScore(dateInput) {
     return totalHappinessScore;
 }
 
+function getLowestAndHighestHappinessScores() {
+    const yearStartdate = new Date('2023-01-01');
+    const yearEndDate = new Date('2023-12-31');
+    let highestHappinessScore = getTotalHappinessScore(yearStartdate);
+    let highestHappinessDate = yearStartdate;
+    let lowestHappinessScore = getTotalHappinessScore(yearEndDate);
+    let lowestHappinessDate = yearStartdate;
+
+    for (let currentDate = startDate; currentDate <= endDate; currentDate.setDate(currentDate.getDate() + 1)) {
+        const currentHappinessScore = getTotalHappinessScore(currentDate);
+        if (currentHappinessScore < lowestHappinessScore) {
+            lowestHappinessDate = currentDate;
+            lowestHappinessScore = currentHappinessScore;
+        }
+        if (currentHappinessScore > highestHappinessScore) {
+            highestHappinessDate = currentDate;
+            highestHappinessScore = currentHappinessScore;
+        }
+    }
+
+    return {
+        highestHappinessScore,
+        highestHappinessDate,
+        lowestHappinessScore,
+        lowestHappinessDate,
+    };
+}
+
 function getClosestHoliday(dateInput) {
     let closestHoliday = companyHolidays[0];
 
@@ -76,9 +104,25 @@ dateInputSubmitBtn.addEventListener("click", ()=> {
 
 // UNIT TESTS
 {
+    // Before first holiday
     const dateInput = new Date('2023-03-15');
     const expectedResult = { name: "Washington's Birthday", date: new Date('2023-02-20') }
     const closestHoliday = getClosestHoliday(dateInput, companyHolidays);
+
+    console.log(`${dateInput}: \nEXPECTED: ${expectedResult.name}, ${formatDate(expectedResult.date)} \nRESULT: ${closestHoliday.name}, ${formatDate(closestHoliday.date)}`);
+    if (closestHoliday.name === expectedResult.name &&
+        closestHoliday.date.getTime() === expectedResult.date.getTime()) {
+        console.log('Test passed');
+    } else {
+        console.error('Test failed');
+    }
+}
+
+{
+    // After last holidy
+    const dateInput = new Date('2023-12-31');
+    const expectedResult = { name: "Holiday Break", date: new Date('2023-12-25') }
+    const closestHoliday = getClosestHoliday(dateInput);
 
     console.log(`${dateInput}: \nEXPECTED: ${expectedResult.name}, ${formatDate(expectedResult.date)} \nRESULT: ${closestHoliday.name}, ${formatDate(closestHoliday.date)}`);
     if (closestHoliday.name === expectedResult.name &&
