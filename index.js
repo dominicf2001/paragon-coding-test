@@ -57,9 +57,24 @@ const companyHolidays = [
   }
 ];
 
+function calculateHappinessScore(dateInput, companyDate) {
+    const msPerDay = 1000 * 60 * 60 * 24;
+    const diffInDays = Math.floor((dateInput - companyDate) / msPerDay);
+
+    if (diffInDays >= 0) {
+        if (diffInDays <= 30) {
+            return 10;
+        } else if (diffInDays >= 31 && diffInDays <= 61) {
+            return 5;
+        } else {
+            return 1;
+        }
+    }
+}
 
 function calculateClosestHoliday(dateInput) {
     let closestHoliday = companyHolidays[0];
+    let happinessScore = 0;
 
     closestHoliday = companyHolidays.reduce((currentClosestHoliday, currentHoliday) => {
         const currentDifference = Math.abs(dateInput - currentHoliday.date);
