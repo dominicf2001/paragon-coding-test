@@ -1,13 +1,13 @@
 const companyHolidays = [
-  { name: "Washington's Birthday", date: new Date('2023-02-20T00:00:00') },
-  { name: "Good Friday", date: new Date('2023-04-07T00:00:00') },
-  { name: "Memorial Day", date: new Date('2023-05-29T00:00:00') },
-  { name: "Juneteenth (observed)", date: new Date('2023-06-19T00:00:00') },
-  { name: "Independence Day", date: new Date('2023-07-04T00:00:00') },
-  { name: "Labor Day", date: new Date('2023-09-04T00:00:00') },
-  { name: "Columbus Day", date: new Date('2023-10-09T00:00:00') },
-  { name: "Thanksgiving Break", date: new Date('2023-11-23T00:00:00') },
-  { name: "Holiday Break", date: new Date('2023-12-25T00:00:00') }
+  { name: "Washington's Birthday", date: new Date('2023-02-20') },
+  { name: "Good Friday", date: new Date('2023-04-07') },
+  { name: "Memorial Day", date: new Date('2023-05-29') },
+  { name: "Juneteenth (observed)", date: new Date('2023-06-19') },
+  { name: "Independence Day", date: new Date('2023-07-04') },
+  { name: "Labor Day", date: new Date('2023-09-04') },
+  { name: "Columbus Day", date: new Date('2023-10-09') },
+  { name: "Thanksgiving Break", date: new Date('2023-11-23') },
+  { name: "Holiday Break", date: new Date('2023-12-25') }
 ];
 
 function getHappinessScore(dateInput, holidayDate) {
@@ -49,6 +49,15 @@ function getClosestHoliday(dateInput) {
     return closestHoliday;
 }
 
+function formatDate(date) {
+    return date.toLocaleString('default', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+}
+
+// DOM MANIPULATION
 const dateInputSubmitBtn = document.querySelector("#date-input-submit-btn");
 const outputHolidayDate = document.querySelector("#output-holiday-date");
 const outputHolidayName = document.querySelector("#output-holiday-name");
@@ -59,6 +68,6 @@ dateInputSubmitBtn.addEventListener("click", ()=> {
     const dateInputObj = new Date(dateInput);
     const closestHolidayObj = getClosestHoliday(dateInputObj);
     outputHolidayName.textContent = closestHolidayObj.name;
-    outputHolidayDate.textContent = closestHolidayObj.date;
+    outputHolidayDate.textContent = formatDate(closestHolidayObj.date);
     outputHappinessScore.textContent = getTotalHappinessScore(dateInputObj);
 });

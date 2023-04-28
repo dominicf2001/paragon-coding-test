@@ -4,3 +4,7 @@
     padding: 2rem;
     margin: 2rem;
 }
+
+span {
+    font-weight: bold;
+}
