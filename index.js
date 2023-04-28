@@ -57,24 +57,33 @@ const companyHolidays = [
   }
 ];
 
-function calculateHappinessScore(dateInput, companyDate) {
+function getHappinessScore(dateInput, holidayDate) {
     const msPerDay = 1000 * 60 * 60 * 24;
-    const diffInDays = Math.floor((dateInput - companyDate) / msPerDay);
+    const diffInDays = Math.floor((holidayDate - dateInput) / msPerDay);
 
-    if (diffInDays >= 0) {
-        if (diffInDays <= 30) {
-            return 10;
-        } else if (diffInDays >= 31 && diffInDays <= 61) {
-            return 5;
-        } else {
-            return 1;
-        }
+    if (diffInDays >= 0 && diffInDays <= 30) {
+        return 10;
+    } else if (diffInDays >= 31 && diffInDays <= 60) {
+        return 5;
+    } else if (diffInDays >= 61 && diffInDays <= 90) {
+        return 1;
+    } else {
+        return 0;
     }
 }
 
-function calculateClosestHoliday(dateInput) {
+function getTotalHappinessScore(dateInput, holidays) {
+    let totalHappinessScore = 0;
+
+    holidays.forEach((holiday) => {
+        totalHappinessScore += getHappinessScore(dateInput, holiday.date);
+    });
+
+    return totalHappinessScore;
+}
+
+function getClosestHolidayAndHappinessScore(dateInput) {
     let closestHoliday = companyHolidays[0];
-    let happinessScore = 0;
 
     closestHoliday = companyHolidays.reduce((currentClosestHoliday, currentHoliday) => {
         const currentDifference = Math.abs(dateInput - currentHoliday.date);
@@ -91,11 +100,13 @@ function calculateClosestHoliday(dateInput) {
 const dateInputSubmitBtn = document.querySelector("#date-input-submit-btn");
 const outputHolidayDate = document.querySelector("#output-holiday-date");
 const outputHolidayName = document.querySelector("#output-holiday-name");
+const outputHappinessScore = document.querySelector("#output-happiness-score");
 
 dateInputSubmitBtn.addEventListener("click", ()=> {
     const dateInput = document.querySelector("#date-input").value;
     const dateInputObj = new Date(dateInput);
-    const closestHolidayObj = calculateClosestHoliday(dateInputObj);
-    outputHolidayName.textContent = closestHolidayObj.name;
-    outputHolidayDate.textContent = closestHolidayObj.date;
+    const closestHolidayObj = getClosestHolidayAndHappinessScore(dateInputObj);
+    outputHolidayName.textContent = closestHolidayObj[0].name;
+    outputHolidayDate.textContent = closestHolidayObj[0].date;
+    outputHappinessScore.textContent = closestHolidayObj[1];
 });
