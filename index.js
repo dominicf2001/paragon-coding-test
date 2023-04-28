@@ -72,17 +72,17 @@ function getHappinessScore(dateInput, holidayDate) {
     }
 }
 
-function getTotalHappinessScore(dateInput, holidays) {
+function getTotalHappinessScore(dateInput) {
     let totalHappinessScore = 0;
 
-    holidays.forEach((holiday) => {
+    companyHolidays.forEach((holiday) => {
         totalHappinessScore += getHappinessScore(dateInput, holiday.date);
     });
 
     return totalHappinessScore;
 }
 
-function getClosestHolidayAndHappinessScore(dateInput) {
+function getClosestHoliday(dateInput) {
     let closestHoliday = companyHolidays[0];
 
     closestHoliday = companyHolidays.reduce((currentClosestHoliday, currentHoliday) => {
@@ -105,8 +105,8 @@ const outputHappinessScore = document.querySelector("#output-happiness-score");
 dateInputSubmitBtn.addEventListener("click", ()=> {
     const dateInput = document.querySelector("#date-input").value;
     const dateInputObj = new Date(dateInput);
-    const closestHolidayObj = getClosestHolidayAndHappinessScore(dateInputObj);
-    outputHolidayName.textContent = closestHolidayObj[0].name;
-    outputHolidayDate.textContent = closestHolidayObj[0].date;
-    outputHappinessScore.textContent = closestHolidayObj[1];
+    const closestHolidayObj = getClosestHoliday(dateInputObj);
+    outputHolidayName.textContent = closestHolidayObj.name;
+    outputHolidayDate.textContent = closestHolidayObj.date;
+    outputHappinessScore.textContent = getTotalHappinessScore(dateInput);
 });
