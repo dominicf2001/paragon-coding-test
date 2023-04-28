@@ -1,66 +1,18 @@
 const companyHolidays = [
-  {
-    date: new Date('2023-02-20'),
-    name: "Washington's Birthday"
-  },
-  {
-    date: new Date('2023-04-07'),
-    name: "Good Friday"
-  },
-  {
-    date: new Date('2023-05-29'),
-    name: "Memorial Day"
-  },
-  {
-    date: new Date('2023-06-19'),
-    name: "Juneteenth (observed)"
-  },
-  {
-    date: new Date('2023-07-04'),
-    name: "Independence Day"
-  },
-  {
-    date: new Date('2023-09-04'),
-    name: "Labor Day"
-  },
-  {
-    date: new Date('2023-10-09'),
-    name: "Columbus Day"
-  },
-  {
-    date: new Date('2023-11-23'),
-    name: "Thanksgiving Day"
-  },
-  {
-    date: new Date('2023-11-24'),
-    name: "Day after Thanksgiving"
-  },
-  {
-    date: new Date('2023-12-25'),
-    name: "Christmas Day"
-  },
-  {
-    date: new Date('2023-12-26'),
-    name: "Holiday Break (Day 2)"
-  },
-  {
-    date: new Date('2023-12-27'),
-    name: "Holiday Break (Day 3)"
-  },
-  {
-    date: new Date('2023-12-28'),
-    name: "Holiday Break (Day 4)"
-  },
-  {
-    date: new Date('2023-12-29'),
-    name: "Holiday Break (Day 5)"
-  }
+  { name: "Washington's Birthday", date: new Date('2023-02-20T00:00:00') },
+  { name: "Good Friday", date: new Date('2023-04-07T00:00:00') },
+  { name: "Memorial Day", date: new Date('2023-05-29T00:00:00') },
+  { name: "Juneteenth (observed)", date: new Date('2023-06-19T00:00:00') },
+  { name: "Independence Day", date: new Date('2023-07-04T00:00:00') },
+  { name: "Labor Day", date: new Date('2023-09-04T00:00:00') },
+  { name: "Columbus Day", date: new Date('2023-10-09T00:00:00') },
+  { name: "Thanksgiving Break", date: new Date('2023-11-23T00:00:00') },
+  { name: "Holiday Break", date: new Date('2023-12-25T00:00:00') }
 ];
 
 function getHappinessScore(dateInput, holidayDate) {
     const msPerDay = 1000 * 60 * 60 * 24;
     const diffInDays = Math.floor((holidayDate - dateInput) / msPerDay);
-
     if (diffInDays >= 0 && diffInDays <= 30) {
         return 10;
     } else if (diffInDays >= 31 && diffInDays <= 60) {
@@ -108,5 +60,5 @@ dateInputSubmitBtn.addEventListener("click", ()=> {
     const closestHolidayObj = getClosestHoliday(dateInputObj);
     outputHolidayName.textContent = closestHolidayObj.name;
     outputHolidayDate.textContent = closestHolidayObj.date;
-    outputHappinessScore.textContent = getTotalHappinessScore(dateInput);
+    outputHappinessScore.textContent = getTotalHappinessScore(dateInputObj);
 });
