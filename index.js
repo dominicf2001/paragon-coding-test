@@ -73,7 +73,6 @@ function calculateClosestHoliday(dateInput) {
     return closestHoliday;
 }
 
-
 const dateInputSubmitBtn = document.querySelector("#date-input-submit-btn");
 const outputHolidayDate = document.querySelector("#output-holiday-date");
 const outputHolidayName = document.querySelector("#output-holiday-name");
@@ -81,6 +80,7 @@ const outputHolidayName = document.querySelector("#output-holiday-name");
 dateInputSubmitBtn.addEventListener("click", ()=> {
     const dateInput = document.querySelector("#date-input").value;
     const dateInputObj = new Date(dateInput);
-    console.log(dateInputObj);
-    console.log(calculateClosestHoliday(dateInputObj));
+    const closestHolidayObj = calculateClosestHoliday(dateInputObj);
+    outputHolidayName.textContent = closestHolidayObj.name;
+    outputHolidayDate.textContent = closestHolidayObj.date;
 });
