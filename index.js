@@ -57,11 +57,22 @@ const companyHolidays = [
   }
 ];
 
-function calculateClosestHoliday(date) {
-    const closestHoliday = companyHolidays.reduce((closest, currentDate) => {
 
-    }, companyHolidays[0]);
+function calculateClosestHoliday(dateInput) {
+    let closestHoliday = companyHolidays[0];
+
+    closestHoliday = companyHolidays.reduce((currentClosestHoliday, currentHoliday) => {
+        const currentDifference = Math.abs(dateInput - currentHoliday.date);
+        const smallestDifference = Math.abs(dateInput - currentClosestHoliday.date);
+
+        return currentDifference < smallestDifference
+            ? currentHoliday
+            : currentClosestHoliday;
+    }, closestHoliday);
+
+    return closestHoliday;
 }
+
 
 const dateInputSubmitBtn = document.querySelector("#date-input-submit-btn");
 const outputHolidayDate = document.querySelector("#output-holiday-date");
@@ -69,5 +80,7 @@ const outputHolidayName = document.querySelector("#output-holiday-name");
 
 dateInputSubmitBtn.addEventListener("click", ()=> {
     const dateInput = document.querySelector("#date-input").value;
-    console.log(dateInput);
+    const dateInputObj = new Date(dateInput);
+    console.log(dateInputObj);
+    console.log(calculateClosestHoliday(dateInputObj));
 });
